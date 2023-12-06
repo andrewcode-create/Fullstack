@@ -1,2 +1,1 @@
-Hello, world!
-try 2
+This is my work on the fullstack cource offered here: https://fullstackopen.com/en
