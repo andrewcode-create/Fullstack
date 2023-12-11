@@ -47,7 +47,7 @@ const App = () => {
 
   //console.clear();
   console.log("re-render");
-  let Voted = MostVoted();
+  let voted = MostVoted();
   return (
     <div>
       <h1>Anecdote of the Day</h1>
@@ -56,8 +56,8 @@ const App = () => {
       <Button text="Vote" onClick={handleClickVote} />
       <Button text="Randomize" onClick={handleClickRandom} />
       <h1>Most voted anecdote</h1>
-      <p>{anecdotes[Voted]}</p>
-      <p>Votes: {votes[Voted]}</p>
+      <p>{anecdotes[voted]}</p>
+      <p>Votes: {votes[voted]}</p>
     </div>
   );
 };
