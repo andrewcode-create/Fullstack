@@ -1,17 +1,13 @@
 import Header from "./Header";
-
+import Content from "./Content";
 const Course = (props) => {
   console.log(props);
   const { parts } = props.course;
   return (
-    <Header text={} />
-    <div>
-      {parts.map((part, i) => (
-        <p key={part.id}>
-          {part.name} {part.exercises}
-        </p>
-      ))}
-    </div>
+    <>
+      <Header text={props.course.name} />
+      <Content parts={parts} />
+    </>
   );
 };
 
