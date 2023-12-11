@@ -4,6 +4,8 @@ const Button = ({ text, onClick }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
+const RenderMostVoted = ({ text, votes }) => {};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -24,12 +26,6 @@ const App = () => {
   const handleClickVote = () => {
     console.log("Click, votes: ", votes);
     console.log("changed votes at ", selected, "to", votes[selected] + 1);
-    debugger;
-    if (votes[selected] + 1 > mostvotedvotes) {
-      //new most voted
-      mostvoted = selected;
-      mostvotedvotes++;
-    }
     setVotes({ ...votes, [selected]: votes[selected] + 1 });
   };
 
@@ -57,7 +53,7 @@ const App = () => {
       <Button text="Vote" onClick={handleClickVote} />
       <Button text="Randomize" onClick={handleClickRandom} />
       <h1>Most voted anecdote</h1>
-      <p>{anecdotes[mostvoted]}</p>
+      <RenderMostVoted text={anecdotes} votes={votes} />
     </div>
   );
 };
