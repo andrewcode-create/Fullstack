@@ -4,8 +4,6 @@ const Button = ({ text, onClick }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
-const RenderMostVoted = ({ text, votes }) => {};
-
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -19,32 +17,37 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState({ [selected]: 0 });
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
   //let mostvoted = 0;
   //let mostvotedvotes = 0;
 
   const handleClickVote = () => {
     console.log("Click, votes: ", votes);
     console.log("changed votes at ", selected, "to", votes[selected] + 1);
-    setVotes({ ...votes, [selected]: votes[selected] + 1 });
+    let arr = [...votes];
+    arr[selected]++;
+    setVotes(arr);
   };
 
   const handleClickRandom = () => {
-    let nselected = Math.floor(Math.random() * anecdotes.length);
-    setSelected(nselected);
-    if (isNaN(votes[nselected])) {
-      console.log(
-        "found error, fixing. Votes is",
-        votes,
-        "nselected is",
-        nselected
-      );
-      setVotes({ ...votes, [nselected]: 0 });
+    setSelected(Math.floor(Math.random() * anecdotes.length));
+  };
+
+  const MostVoted = () => {
+    let maxnum = 0;
+    let maxval = 0;
+    for (let i = 0; i < anecdotes.length; i++) {
+      if (votes[i] > votes[maxnum]) {
+        maxval = votes[i];
+        maxnum = i;
+      }
     }
+    return maxnum;
   };
 
   //console.clear();
   console.log("re-render");
+  let Voted = MostVoted();
   return (
     <div>
       <h1>Anecdote of the Day</h1>
@@ -53,7 +56,8 @@ const App = () => {
       <Button text="Vote" onClick={handleClickVote} />
       <Button text="Randomize" onClick={handleClickRandom} />
       <h1>Most voted anecdote</h1>
-      <RenderMostVoted text={anecdotes} votes={votes} />
+      <p>{anecdotes[Voted]}</p>
+      <p>Votes: {votes[Voted]}</p>
     </div>
   );
 };
