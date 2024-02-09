@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Person from "./components/Person";
+import SearchBox from "./components/SearchBox";
 
 const App = (props) => {
   const [persons, setPersons] = useState([
@@ -37,18 +39,10 @@ const App = (props) => {
     setNewNumber(event.target.value);
   };
 
-  const Person = ({ person }) => {
-    return (
-      <p>
-        ★ {person.name} ★ {person.number} ★
-      </p>
-    );
-  };
-
   return (
     <div>
       <h2>Phonebook</h2>
-      Search: <input value={newSearch} onChange={handleSearchChange} />
+      Search: <SearchBox value={newSearch} onChange={handleSearchChange} />
       <form onSubmit={addName}>
         <div>
           Name: <input value={newName} onChange={handleNameChange} />
