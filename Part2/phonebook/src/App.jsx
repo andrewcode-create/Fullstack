@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = (props) => {
+  const [persons, setPersons] = useState([{ name: "Arto Hellas", id: 0 }]);
+  const [newName, setNewName] = useState("");
+
+  const addName = (event) => {
+    event.preventDefault();
+    if (persons.map((person) => person.name).includes(newName)) {
+      alert(`${newName} is already added to phonebook`);
+      console.log(`${newName} is already added to phonebook`);
+      return;
+    }
+    const obj = {
+      name: newName,
+      id: persons.length,
+    };
+    setPersons(persons.concat(obj));
+    setNewName("");
+  };
+
+  const handleNameChange = (event) => {
+    //console.log(event.target.value);
+    setNewName(event.target.value);
+  };
+
+  const Person = ({ name }) => {
+    return <p>{name}</p>;
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={addName}>
+        <div>
+          name: <input value={newName} onChange={handleNameChange} />
+          <div>debug: {newName}</div>
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
+      {persons.map((person) => (
+        <Person name={person.name} key={person.id} />
+      ))}
+    </div>
+  );
+};
 
-export default App
+export default App;
