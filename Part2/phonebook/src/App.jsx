@@ -12,6 +12,18 @@ const App = (props) => {
 
   const addName = (event) => {
     event.preventDefault();
+    if (newName === "") {
+      alert(
+        `You left the name field empty. This cannot be added to the phonebook. `
+      );
+      return;
+    }
+    if (newNumber === "") {
+      alert(
+        `You left the number field empty. This cannot be added to the phonebook. `
+      );
+      return;
+    }
     if (persons.map((person) => person.name).includes(newName)) {
       alert(`${newName} is already added to phonebook`);
       console.log(`${newName} is already added to phonebook`);
@@ -19,10 +31,12 @@ const App = (props) => {
     }
     const obj = {
       name: newName,
+      number: newNumber,
       id: persons.length,
     };
     setPersons(persons.concat(obj));
     setNewName("");
+    setNewNumber("");
   };
 
   const handleNameChange = (event) => {
