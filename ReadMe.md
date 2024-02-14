@@ -5,5 +5,19 @@ npm create vite@latest [DIRECTORY NAME] -- --template react
 cd [DIRECTORY NAME]
 npm install
 
-to start:
+to start project:
 npm run dev
+
+to create a json server:
+// use -g to make it global, ADMIN PRIVLEGES NEEDED
+npm install -g json-server
+
+to start a json server:
+// --port specifies a port number. 3000 is default
+// --watch makes it watch for changes in db.json
+json-server --port 3001 --watch db.json
+
+to start a local json server:
+// --port specifies a port number. 3000 is default
+// --watch makes it watch for changes in db.json
+npx json-server --port 3001 --watch db.json
