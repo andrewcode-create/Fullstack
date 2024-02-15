@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Person from "./components/Person";
 import SearchBox from "./components/SearchBox";
 import PersonForm from "./components/PersonForm";
+import axios from "axios";
 
 const App = (props) => {
-  const [persons, setPersons] = useState([
-    { name: "Testfirstname Testlastname", number: "000-000-0000", id: 0 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newSearch, setNewSearch] = useState("");
+
+  useEffect(() => {
+    console.log("getting the phonebook...");
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  }, []);
+  //console.log("render", persons.length, "people");
 
   const addName = (event) => {
     event.preventDefault();
@@ -33,7 +41,7 @@ const App = (props) => {
     const obj = {
       name: newName,
       number: newNumber,
-      id: persons.length,
+      id: persons.length + 1,
     };
     setPersons(persons.concat(obj));
     setNewName("");
