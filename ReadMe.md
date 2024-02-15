@@ -10,7 +10,7 @@ npm run dev
 
 to create a json server:
 // use -g to make it global, ADMIN PRIVLEGES NEEDED
-npm install -g json-server
+npm install json-server
 
 to start a json server:
 // --port specifies a port number. 3000 is default
