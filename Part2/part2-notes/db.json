@@ -3,7 +3,7 @@
     {
       "id": "1",
       "content": "HTML is easy",
-      "important": true
+      "important": false
     },
     {
       "id": "2",
@@ -24,11 +24,6 @@
       "id": "96dc",
       "content": "haas",
       "important": false
-    },
-    {
-      "id": "2b6a",
-      "content": "drew",
-      "important": true
     }
   ]
 }
