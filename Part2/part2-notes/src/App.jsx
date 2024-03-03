@@ -5,13 +5,17 @@ import Note from "./components/Note";
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
     axios.get("http://localhost:3001/notes").then((response) => {
       setNotes(response.data);
     });
   }, []);
+
+  const toggleImportanceOf = (id) => {
+    console.log(`importance of ${id} needs to be toggled`);
+  };
 
   const addNote = (event) => {
     event.preventDefault();
@@ -42,7 +46,11 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map((note) => (
-          <Note key={note.id} note={note} />
+          <Note
+            key={note.id}
+            note={note}
+            toggleImportance={() => toggleImportanceOf(note.id)}
+          />
         ))}
       </ul>
       <form onSubmit={addNote}>
