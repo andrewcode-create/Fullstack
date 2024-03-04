@@ -34,8 +34,25 @@ const App = (props) => {
       return;
     }
     if (persons.map((person) => person.name).includes(newName)) {
-      alert(`${newName} is already added to phonebook`);
-      console.log(`${newName} is already added to phonebook`);
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook. Update number?`
+        )
+      ) {
+        const oldPerson = persons.find((person) => person.name === newName);
+        const newPerson = { ...oldPerson, number: newNumber };
+        console.log(`updating ${oldPerson.name} with id ${oldPerson.id}`);
+        personService.update(oldPerson.id, newPerson).then((retPerson) => {
+          console.log(
+            `updated ${oldPerson.name}'s number to be ${retPerson.number}`
+          );
+          setPersons(
+            persons.map((person) =>
+              person.id === retPerson.id ? retPerson : person
+            )
+          );
+        });
+      }
       return;
     }
     const obj = {
