@@ -20,20 +20,35 @@ const App = () => {
   };
 
   const countryToPrint = () => {
-    const specific = allCountries
-      .filter((country) =>
-        country.name.common.toLowerCase().includes(searchCountry.toLowerCase())
-      )
-      .map((country) => country.name.common);
+    const specific = allCountries.filter((country) =>
+      country.name.common.toLowerCase().includes(searchCountry.toLowerCase())
+    );
     console.log(`Seearch has ${specific.length} matches`);
     return specific;
+  };
+
+  const contries = countryToPrint();
+
+  const countryInfo = (contries) => {
+    if (contries.length !== 1) return "";
+    return contries.map(
+      (country) =>
+        `Capital: ${country.capital}, Languages: <li>${country.languages}
+        </li>`
+    );
   };
 
   return (
     <div>
       <p>Find counries </p>
       <input value={searchCountry} onChange={handleCountryChange} />
-      <p>{countryToPrint()}</p>
+      <p>
+        {contries.length > 10
+          ? "Too many matches, specify another filter"
+          : contries.map((country) => country.name.common).join(", ")}
+        <br />
+        {countryInfo(contries)}
+      </p>
     </div>
   );
 };
