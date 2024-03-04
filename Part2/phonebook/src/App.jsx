@@ -3,6 +3,7 @@ import Person from "./components/Person";
 import SearchBox from "./components/SearchBox";
 import PersonForm from "./components/PersonForm";
 import axios from "axios";
+import personService from "./services/persons";
 
 const App = (props) => {
   const [persons, setPersons] = useState([]);
@@ -12,12 +13,11 @@ const App = (props) => {
 
   useEffect(() => {
     console.log("getting the phonebook...");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
-      setPersons(response.data);
+    personService.getAll().then((people) => {
+      console.log(`got initial ${people.length} people`);
+      setPersons(people);
     });
   }, []);
-  //console.log("render", persons.length, "people");
 
   const addName = (event) => {
     event.preventDefault();
@@ -41,11 +41,16 @@ const App = (props) => {
     const obj = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
+      //id: persons.length + 1,
     };
-    setPersons(persons.concat(obj));
-    setNewName("");
-    setNewNumber("");
+    personService.create(obj).then((returnedPerson) => {
+      setPersons(persons.concat(returnedPerson));
+      setNewName("");
+      setNewNumber("");
+      console.log(
+        `added ${returnedPerson.name} to server with number ${returnedPerson.number} and ID ${returnedPerson.id}`
+      );
+    });
   };
 
   const handleNameChange = (event) => {
