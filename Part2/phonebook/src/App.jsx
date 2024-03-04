@@ -53,6 +53,25 @@ const App = (props) => {
     });
   };
 
+  const deletePerson = (id) => {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete ${
+          persons.find((person) => person.id === id).name
+        }?`
+      )
+    ) {
+      return;
+    }
+    personService
+      .remove(id)
+      .then(() => {
+        setPersons(persons.filter((person) => person.id != id));
+        console.log(`deleted ${id} from server`);
+      })
+      .catch(() => alert(`Could not delete note id ${id} from server`));
+  };
+
   const handleNameChange = (event) => {
     //console.log(event.target.value);
     setNewName(event.target.value);
@@ -84,7 +103,11 @@ const App = (props) => {
           person.name.toLowerCase().includes(newSearch.toLowerCase())
         )
         .map((person) => (
-          <Person person={person} key={person.id} />
+          <Person
+            person={person}
+            deletePerson={() => deletePerson(person.id)}
+            key={person.id}
+          />
         ))}
     </div>
   );
