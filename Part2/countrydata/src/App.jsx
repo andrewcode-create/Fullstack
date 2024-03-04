@@ -46,12 +46,17 @@ const App = () => {
     <div>
       <p>Find counries </p>
       <input value={searchCountry} onChange={handleCountryChange} />
-      <p>
+      <div>
         {contries.length > 10
           ? "Too many matches, specify another filter"
-          : contries.map((country) => country.name.common).join("...")}
+          : contries.map((country) => (
+              <div key={country.name.common}>
+                {country.name.common}{" "}
+                <button onClick={() => handleShowButton(country)}>show</button>
+              </div>
+            ))}
         <br />
-      </p>
+      </div>
 
       {contries.length === 1 ? (
         <>
