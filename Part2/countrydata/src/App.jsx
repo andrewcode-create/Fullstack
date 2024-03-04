@@ -38,14 +38,6 @@ const App = () => {
     );
   };
 
-  <ul>
-    {Object.entries(country.languages).map(([code, language]) => (
-      <li key={code}>
-        {code}: {language}
-      </li>
-    ))}
-  </ul>;
-
   return (
     <div>
       <p>Find counries </p>
@@ -55,22 +47,29 @@ const App = () => {
           ? "Too many matches, specify another filter"
           : contries.map((country) => country.name.common).join(", ")}
         <br />
-        hi
-        {contries.length === 1 ? (
+      </p>
+
+      {contries.length === 1 ? (
+        <>
+          <p>Capital: {contries.map((country) => country.capital)}</p>
+          <p>Population: {contries.map((country) => country.population)}</p>
+          <p>Area: {contries.map((country) => country.area)}</p>
+          <p>Languages:</p>
           <ul>
-            {contries.filter((country) =>
+            {contries.map((country) =>
               Object.entries(country.languages).map(([code, language]) => (
-                <li key={code}>
-                  {code}: {language}
-                </li>
+                <li key={code}>{language}</li>
               ))
             )}
           </ul>
-        ) : (
-          ""
-        )}
-        {countryInfo(contries)}
-      </p>
+          <img
+            style={{ border: "100px" }}
+            src={contries.map((country) => country.flags.png)}
+          ></img>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
