@@ -38,6 +38,10 @@ const App = () => {
     );
   };
 
+  const handleShowButton = (country) => {
+    setSearchCountry(country.name.common);
+  };
+
   return (
     <div>
       <p>Find counries </p>
@@ -45,7 +49,7 @@ const App = () => {
       <p>
         {contries.length > 10
           ? "Too many matches, specify another filter"
-          : contries.map((country) => country.name.common).join(", ")}
+          : contries.map((country) => country.name.common).join("...")}
         <br />
       </p>
 
@@ -62,10 +66,7 @@ const App = () => {
               ))
             )}
           </ul>
-          <img
-            style={{ border: "100px" }}
-            src={contries.map((country) => country.flags.png)}
-          ></img>
+          <img src={contries.map((country) => country.flags.png)}></img>
         </>
       ) : (
         ""
