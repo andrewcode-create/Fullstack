@@ -10,6 +10,8 @@ const App = (props) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newSearch, setNewSearch] = useState("");
+  const [notification, setNotification] = useState(null);
+  const [notificationStyle, setNotificationStyle] = useState(null);
 
   useEffect(() => {
     console.log("getting the phonebook...");
@@ -19,18 +21,32 @@ const App = (props) => {
     });
   }, []);
 
+  const Notification = ({ message, style }) => {
+    if (message === null) {
+      return null;
+    }
+
+    return <div className={style}>{message}</div>;
+  };
+
   const addName = (event) => {
     event.preventDefault();
     if (newName === "") {
-      alert(
-        `You left the name field empty. This cannot be added to the phonebook. `
-      );
+      setNotification("Name field empty. Cannot be added to phonebook.");
+      setNotificationStyle("error");
+      setTimeout(() => {
+        setNotification(null);
+        setNotificationStyle(null);
+      }, 3500);
       return;
     }
     if (newNumber === "") {
-      alert(
-        `You left the number field empty. This cannot be added to the phonebook. `
-      );
+      setNotification("Number field empty. Cannot be added to phonebook.");
+      setNotificationStyle("error");
+      setTimeout(() => {
+        setNotification(null);
+        setNotificationStyle(null);
+      }, 3500);
       return;
     }
     if (persons.map((person) => person.name).includes(newName)) {
@@ -42,16 +58,32 @@ const App = (props) => {
         const oldPerson = persons.find((person) => person.name === newName);
         const newPerson = { ...oldPerson, number: newNumber };
         console.log(`updating ${oldPerson.name} with id ${oldPerson.id}`);
-        personService.update(oldPerson.id, newPerson).then((retPerson) => {
-          console.log(
-            `updated ${oldPerson.name}'s number to be ${retPerson.number}`
-          );
-          setPersons(
-            persons.map((person) =>
-              person.id === retPerson.id ? retPerson : person
-            )
-          );
-        });
+        personService
+          .update(oldPerson.id, newPerson)
+          .then((retPerson) => {
+            console.log(
+              `updated ${oldPerson.name}'s number to be ${retPerson.number}`
+            );
+            setNotification(`Successfully updated ${retPerson.name}.`);
+            setNotificationStyle("good");
+            setTimeout(() => {
+              setNotification(null);
+              setNotificationStyle(null);
+            }, 3500);
+            setPersons(
+              persons.map((person) =>
+                person.id === retPerson.id ? retPerson : person
+              )
+            );
+          })
+          .catch(() => {
+            setNotification(`Error, ${newName} not found in server.`);
+            setNotificationStyle("error");
+            setTimeout(() => {
+              setNotification(null);
+              setNotificationStyle(null);
+            }, 4000);
+          });
       }
       return;
     }
@@ -67,6 +99,12 @@ const App = (props) => {
       console.log(
         `added ${returnedPerson.name} to server with number ${returnedPerson.number} and ID ${returnedPerson.id}`
       );
+      setNotification(`Successfully added ${returnedPerson.name}.`);
+      setNotificationStyle("good");
+      setTimeout(() => {
+        setNotification(null);
+        setNotificationStyle(null);
+      }, 3500);
     });
   };
 
@@ -105,6 +143,7 @@ const App = (props) => {
 
   return (
     <div>
+      <Notification message={notification} style={notificationStyle} />
       <h2>Phonebook</h2>
       Search: <SearchBox value={newSearch} onChange={handleSearchChange} />
       <PersonForm
