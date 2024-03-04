@@ -33,10 +33,18 @@ const App = () => {
     if (contries.length !== 1) return "";
     return contries.map(
       (country) =>
-        `Capital: ${country.capital}, Languages: <li>${country.languages}
+        `Capital: ${country.capital}, Languages: <ul>${country.languages}
         </li>`
     );
   };
+
+  <ul>
+    {Object.entries(country.languages).map(([code, language]) => (
+      <li key={code}>
+        {code}: {language}
+      </li>
+    ))}
+  </ul>;
 
   return (
     <div>
@@ -47,6 +55,20 @@ const App = () => {
           ? "Too many matches, specify another filter"
           : contries.map((country) => country.name.common).join(", ")}
         <br />
+        hi
+        {contries.length === 1 ? (
+          <ul>
+            {contries.filter((country) =>
+              Object.entries(country.languages).map(([code, language]) => (
+                <li key={code}>
+                  {code}: {language}
+                </li>
+              ))
+            )}
+          </ul>
+        ) : (
+          ""
+        )}
         {countryInfo(contries)}
       </p>
     </div>
