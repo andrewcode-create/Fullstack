@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import getApiKey from "./ApiKey";
+import getWeatherKey from "./ApiKey"; //file in .gitignore, better than using an env variable
 
-const api_key = getApiKey();
+const api_key = getWeatherKey();
 
 const App = () => {
   const [searchCountry, setSearchCountry] = useState("");
