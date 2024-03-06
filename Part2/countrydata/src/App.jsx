@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import getApiKey from "./ApiKey";
+
+const api_key = getApiKey();
 
 const App = () => {
   const [searchCountry, setSearchCountry] = useState("");
@@ -29,21 +32,13 @@ const App = () => {
 
   const contries = countryToPrint();
 
-  const countryInfo = (contries) => {
-    if (contries.length !== 1) return "";
-    return contries.map(
-      (country) =>
-        `Capital: ${country.capital}, Languages: <ul>${country.languages}
-        </li>`
-    );
-  };
-
   const handleShowButton = (country) => {
     setSearchCountry(country.name.common);
   };
 
   return (
     <div>
+      <p>{api_key}</p>
       <p>Find counries </p>
       <input value={searchCountry} onChange={handleCountryChange} />
       <div>
