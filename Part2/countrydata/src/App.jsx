@@ -92,10 +92,14 @@ const App = () => {
               showWeather(contries[0])
             ) : (
               <div>
-                {`Temp: ${weather.main.temp}`} <br />
+                <h2>Weather</h2>
+                {`Tempurature: ${weather.main.temp - 272.15} degrees C`} <br />
+                {`Weather: ${weather.weather[0].description}`} <br />
                 <img
                   src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                 />
+                <br />
+                {`Wind: ${weather.wind.speed} m/s`}
               </div>
             )}
           </div>
