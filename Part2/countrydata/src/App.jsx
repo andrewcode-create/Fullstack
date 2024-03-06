@@ -7,6 +7,7 @@ const api_key = getWeatherKey();
 const App = () => {
   const [searchCountry, setSearchCountry] = useState("");
   const [allCountries, setAllCountries] = useState([]);
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     axios
@@ -34,6 +35,25 @@ const App = () => {
 
   const handleShowButton = (country) => {
     setSearchCountry(country.name.common);
+  };
+
+  const showWeather = (country) => {
+    axios
+      .get(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${country.capital},${country.name.code}&appid=${api_key}`
+      )
+      .then((response) => {
+        var coords = { lat: response.data[0].lat, lon: response.data[0].lon };
+        console.log(coords);
+        axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${api_key}`
+          )
+          .then((response) => {
+            console.log(response.data);
+            setWeather(response.data);
+          });
+      });
   };
 
   return (
@@ -67,6 +87,18 @@ const App = () => {
             )}
           </ul>
           <img src={contries.map((country) => country.flags.png)}></img>
+          <div>
+            {weather === null ? (
+              showWeather(contries[0])
+            ) : (
+              <div>
+                {`Temp: ${weather.main.temp}`} <br />
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                />
+              </div>
+            )}
+          </div>
         </>
       ) : (
         ""
