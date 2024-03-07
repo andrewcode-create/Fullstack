@@ -8,6 +8,11 @@ npm install
 to start project:
 npm run dev
 
+to create a backend:
+mkdir [DIRECTORY NAME]
+npm init
+create a .gitignore file
+
 to create a json server:
 // use -g to make it global, ADMIN PRIVLEGES NEEDED
 npm install json-server
