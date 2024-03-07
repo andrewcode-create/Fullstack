@@ -1,9 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
-const cores = require("cores");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3001;
-app.use(cores());
+app.use(cors());
 app.use(express.json());
 app.use(
   morgan((tokens, req, res) => {
