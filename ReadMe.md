@@ -11,7 +11,10 @@ npm run dev
 to create a backend:
 mkdir [DIRECTORY NAME]
 npm init
+npm install
 create a .gitignore file
+npm install express
+npm install --save-dev nodemon
 
 to create a json server:
 // use -g to make it global, ADMIN PRIVLEGES NEEDED
