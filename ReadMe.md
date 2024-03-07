@@ -15,6 +15,8 @@ npm install
 create a .gitignore file
 npm install express
 npm install --save-dev nodemon
+//for logging
+npm install morgan
 
 to create a json server:
 // use -g to make it global, ADMIN PRIVLEGES NEEDED
