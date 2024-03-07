@@ -17,6 +17,8 @@ npm install express
 npm install --save-dev nodemon
 //for logging
 npm install morgan
+//CORES! for cross-origin hosting
+npm install cors
 
 to create a json server:
 // use -g to make it global, ADMIN PRIVLEGES NEEDED
