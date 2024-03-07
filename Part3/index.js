@@ -27,6 +27,29 @@ app.get("/api/notes", (request, response) => {
   response.json(notes);
 });
 
+app.delete("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  notes = notes.filter((note) => note.id !== id);
+
+  response.status(204).end();
+});
+
+app.get("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  console.log("id: " + id);
+  const note = notes.find((note) => {
+    console.log(note.id, typeof note.id, id, typeof id, note.id === id);
+    return note.id === id;
+  });
+  console.log("note: " + note);
+  if (note) {
+    response.json(note);
+  } else {
+    response.statusMessage = `Note id ${id} not found.`;
+    response.status(404).end();
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
