@@ -99,6 +99,7 @@ const App = (props) => {
       console.log(
         `added ${returnedPerson.name} to server with number ${returnedPerson.number} and ID ${returnedPerson.id}`
       );
+      console.log(returnedPerson);
       setNotification(`Successfully added ${returnedPerson.name}.`);
       setNotificationStyle("good");
       setTimeout(() => {
