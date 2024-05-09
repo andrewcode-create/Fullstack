@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 5000;
 app.use(cors());
 app.use(express.static("dist"));
 app.use(express.json());
@@ -109,7 +109,7 @@ app.post("/api/persons", (request, response) => {
   response.json(person);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT,"0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`URL: http://localhost:${PORT}/`);
 });
