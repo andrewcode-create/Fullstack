@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui": "rm -r dist && cd ../frontend && npm run build && cp -r dist ../backend"
+    "build:ui": "rm -r dist && cd ../frontend && npm run build && cp -r dist ../backend",
+    "deploy": "npm run start",
+    "deploy:full": "npm run build:ui && npm run deploy"
   },
   "repository": {
     "type": "git",
