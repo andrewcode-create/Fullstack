@@ -1,8 +1,10 @@
+require("dotenv").config();
+const Person = require("./models/person");
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const PORT = 5000;
+const PORT = prosses.env.PORT;
 app.use(cors());
 app.use(express.static("dist"));
 app.use(express.json());
@@ -44,8 +46,19 @@ let persons = [
   },
 ];
 
+//mongoose
+
+const mongoose = require("mongoose");
+
+if (process.argv.length < 3) {
+  console.log("give password as argument");
+  process.exit(1);
+}
+
 app.get("/api/persons", (request, response) => {
-  response.json(persons);
+  Person.find({}).then((result) => {
+    response.json(result);
+  });
 });
 
 app.get("/api/persons/:id", (request, response) => {
@@ -109,7 +122,7 @@ app.post("/api/persons", (request, response) => {
   response.json(person);
 });
 
-app.listen(PORT,"0.0.0.0", () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`URL: http://localhost:${PORT}/`);
 });
