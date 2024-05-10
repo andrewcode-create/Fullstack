@@ -24,6 +24,10 @@ const personSchema = new mongoose.Schema({
   },
   number: {
     type: String,
+    minLength: [8, "number has to be at least 8 characters"],
+    validate: (val) => {
+      return true;
+    },
     required: true,
   },
 });

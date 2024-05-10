@@ -77,12 +77,13 @@ const App = (props) => {
             );
           })
           .catch(() => {
-            setNotification(`Error, ${newName} not found in server.`);
+            console.log(error.response.data.error);
+            setNotification(`${error.response.data.error}`);
             setNotificationStyle("error");
             setTimeout(() => {
               setNotification(null);
               setNotificationStyle(null);
-            }, 4000);
+            }, 5000);
           });
       }
       return;
@@ -92,7 +93,6 @@ const App = (props) => {
       number: newNumber,
       //id: persons.length + 1,
     };
-    console.log("??????????????/");
     personService
       .create(obj)
       .then((returnedPerson) => {
@@ -111,9 +111,13 @@ const App = (props) => {
         }, 3500);
       })
       .catch((error) => {
-        console.log(error);
-        setNotification(`!!!${error}`);
-        setNotificationStyle("bad");
+        console.log(error.response.data.error);
+        setNotification(`${error.response.data.error}`);
+        setNotificationStyle("error");
+        setTimeout(() => {
+          setNotification(null);
+          setNotificationStyle(null);
+        }, 5000);
       });
   };
 
