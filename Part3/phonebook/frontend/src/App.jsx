@@ -92,6 +92,7 @@ const App = (props) => {
       number: newNumber,
       //id: persons.length + 1,
     };
+    console.log("??????????????/");
     personService
       .create(obj)
       .then((returnedPerson) => {
@@ -111,7 +112,7 @@ const App = (props) => {
       })
       .catch((error) => {
         console.log(error);
-        setNotification(`${error}`);
+        setNotification(`!!!${error}`);
         setNotificationStyle("bad");
       });
   };
