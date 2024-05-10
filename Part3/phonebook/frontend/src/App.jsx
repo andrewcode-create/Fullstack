@@ -76,7 +76,7 @@ const App = (props) => {
               )
             );
           })
-          .catch(() => {
+          .catch((error) => {
             console.log(error.response.data.error);
             setNotification(`${error.response.data.error}`);
             setNotificationStyle("error");
