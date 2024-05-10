@@ -25,9 +25,13 @@ const personSchema = new mongoose.Schema({
   number: {
     type: String,
     minLength: [8, "number has to be at least 8 characters"],
-    validate: (val) => {
-      return true;
-    },
+    validate: [
+      (val) => {
+        const re = /[0-9]{2,3}-[0-9]{2,}/;
+        return re.test(val);
+      },
+      "must be a valid phone number with 1 dash",
+    ],
     required: true,
   },
 });
