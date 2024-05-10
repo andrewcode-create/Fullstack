@@ -42,11 +42,12 @@ app.get("/api/persons/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
-//todo
 app.get("/info", (request, response) => {
-  response.send(
-    `Phonebook has info for ${persons.length} people. <br/><br/>${Date()}`
-  );
+  Person.find({}).then((result) => {
+    response.send(
+      `Phonebook has info for ${result.length} people. <br/><br/>${Date()}`
+    );
+  });
 });
 
 app.delete("/api/persons/:id", (request, response) => {
