@@ -92,21 +92,28 @@ const App = (props) => {
       number: newNumber,
       //id: persons.length + 1,
     };
-    personService.create(obj).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-      setNewName("");
-      setNewNumber("");
-      console.log(
-        `added ${returnedPerson.name} to server with number ${returnedPerson.number} and ID ${returnedPerson.id}`
-      );
-      console.log(returnedPerson);
-      setNotification(`Successfully added ${returnedPerson.name}.`);
-      setNotificationStyle("good");
-      setTimeout(() => {
-        setNotification(null);
-        setNotificationStyle(null);
-      }, 3500);
-    });
+    personService
+      .create(obj)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        setNewName("");
+        setNewNumber("");
+        console.log(
+          `added ${returnedPerson.name} to server with number ${returnedPerson.number} and ID ${returnedPerson.id}`
+        );
+        console.log(returnedPerson);
+        setNotification(`Successfully added ${returnedPerson.name}.`);
+        setNotificationStyle("good");
+        setTimeout(() => {
+          setNotification(null);
+          setNotificationStyle(null);
+        }, 3500);
+      })
+      .catch((error) => {
+        console.log(error);
+        setNotification(`${error}`);
+        setNotificationStyle("bad");
+      });
   };
 
   const deletePerson = (id) => {
